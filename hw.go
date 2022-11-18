@@ -2,27 +2,28 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
-func ps(b []int) []int {
-	for j := 1; j < len(b); j++ {
-		for i := 0; i < len(b)-1; i++ {
-			if b[i] > b[i+1] {
-				b[i], b[i+1] = b[i+1], b[i]
-			}
-		}
-	}
-	return b
-}
+type FuncType func() string
+
+var 好康的 FuncType
+
 func main() {
-	var n, l, r int
-	fmt.Scanf("%d %d %d\n", &n, &l, &r)
-	a := make([]int, n)
-	for i := 0; i < n; i++ {
-		fmt.Scanf("%d", &a[i])
-	}
-	Y := ps(a[l : r+1])
+	go func() {
+		好康的 = 打电动
+		fmt.Println(好康的())
+	}()
 
-	fmt.Println(append(a[:l], Y...))
+	好康的 = 欢迎来我家玩
+	fmt.Println(好康的())
+}
+func 欢迎来我家玩() string {
+	// 花费 5s 前往杰哥家
+	time.Sleep(5 * time.Second)
+	return "登dua郎"
+}
 
+func 打电动() string {
+	return "输了啦，都是你害的"
 }
